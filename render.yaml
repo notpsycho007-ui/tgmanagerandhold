@@ -1,0 +1,20 @@
+services:
+  - type: worker
+    name: telemanager-pro
+    runtime: python
+    plan: starter            # persistent disk-এর জন্য paid plan লাগে
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS          # একাধিক admin: 123456,789012
+        sync: false
+      - key: DATABASE_PATH
+        value: /data/telemanager.db
